@@ -8568,6 +8568,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 967127320}
     m_Modifications:
+    - target: {fileID: 94345721634886346, guid: 8c240e595a59b8447bbdd4c776ee9645, type: 3}
+      propertyPath: colliderDistance
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 94345721634886348, guid: 8c240e595a59b8447bbdd4c776ee9645, type: 3}
       propertyPath: m_Name
       value: EnemyMelee

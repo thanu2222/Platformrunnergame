@@ -30,6 +30,7 @@ public class Health : MonoBehaviour
         {
             if (!dead)
             {
+                if(GetComponent<PlayerMovement>() != null)
                 GetComponent<PlayerMovement>().enabled = false;
                 dead = true;
 
