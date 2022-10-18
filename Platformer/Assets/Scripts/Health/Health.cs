@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
     [Header ("Health")]
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
+    private Animator anim;
     private bool dead;
 
     [Header("iFrames")]
@@ -20,6 +21,7 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         currentHealth = startingHealth;
+        anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>();
     }
     public void TakeDamage(float _damage)
@@ -29,13 +31,14 @@ public class Health : MonoBehaviour
 
         if (currentHealth > 0)
         {
-
+            
             StartCoroutine(Invunerability());
         }
         else
         {
             if (!dead)
             {
+                anim.SetTrigger("die");
 
                 //Deactivate all attached component classes
                 foreach (Behaviour component in components)
@@ -63,7 +66,7 @@ public class Health : MonoBehaviour
         Physics2D.IgnoreLayerCollision(10, 11, false);
         invulnerable = false;
     }
-
-   
-}   
+}
+            
+      
 
