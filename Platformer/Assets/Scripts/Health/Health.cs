@@ -39,11 +39,9 @@ public class Health : MonoBehaviour
             if (!dead)
             {
                 anim.SetTrigger("die");
-
-                //Deactivate all attached component classes
                 foreach (Behaviour component in components)
                     component.enabled = false;
-
+        
                 dead = true;
             }
         }
@@ -52,6 +50,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
     }
+
     private IEnumerator Invunerability()
     {
         invulnerable = true;
@@ -66,7 +65,24 @@ public class Health : MonoBehaviour
         Physics2D.IgnoreLayerCollision(10, 11, false);
         invulnerable = false;
     }
+
+     private void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
+
+     //Respawn
+    public void Respawn()
+    {
+        dead = false;
+        AddHealth(startingHealth);
+        StartCoroutine(Invunerability());
+
+        //Activate all attached component classes
+        foreach (Behaviour component in components)
+            component.enabled = true;
+    }
 }
-            
       
 
