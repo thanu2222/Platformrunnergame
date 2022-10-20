@@ -3,77 +3,109 @@ using UnityEngine;
 public class RangedEnemy : MonoBehaviour
 {
     [Header("Attack Parameters")]
+    // Refernces arrow trap attack cool down 
     [SerializeField] private float attackCooldown;
+    // References the range of the enemy
     [SerializeField] private float range;
+    // Refernces the damage the enemy does
     [SerializeField] private int damage;
 
     [Header("Ranged Attack")]
+    // Referncing the posistion the fireballs will be fired from the enemy
     [SerializeField] private Transform firepoint;
+    // Referncing Game obejcts to place the fireballs
     [SerializeField] private GameObject[] fireballs;
 
     [Header("Collider Parameters")]
+    // Referncing the distance the player needs to be within for the enemy to start shooting
     [SerializeField] private float colliderDistance;
+    // Referncing Box Collider2D
     [SerializeField] private BoxCollider2D boxCollider;
 
     [Header("Player Layer")]
+    // Referncing Player Layer
     [SerializeField] private LayerMask playerLayer;
+    // Referncing Cooldownt timer
     private float cooldownTimer = Mathf.Infinity;
 
     //References
+    // Referncing BoxCollider 2D
     private Animator anim;
+    // Refenrcinng Enemy Patrol
     private EnemyPatrol enemyPatrol;
 
+    // Calling Awake function(Awake function is called everytime the script is loaded)
     private void Awake()
     {
+        //Checking for Component for Animator and storing the component inside the anim variable
         anim = GetComponent<Animator>();
+        //Checking for Component for Enemypatrol  and storing the component inside the enemyPatrol variable
         enemyPatrol = GetComponentInParent<EnemyPatrol>();
     }
 
+    // Update is called once per frame
     private void Update()
     {
+        // Cool downt timer
         cooldownTimer += Time.deltaTime;
 
-        //Attack only when player in sight?
+        //Attack only when player in sight
+        // Checks if player is in sight
         if (PlayerInSight())
         {
+            // checks if player is in sight and the cool down timer is greater than attack cool down
             if (cooldownTimer >= attackCooldown)
             {
+                // reset the cooldown timer to 0
                 cooldownTimer = 0;
+                // Enemy attack animation
                 anim.SetTrigger("rangedAttack");
             }
         }
 
+        // Patroling of the enemy
         if (enemyPatrol != null)
             enemyPatrol.enabled = !PlayerInSight();
     }
 
+    // Method for Ranged Attack
     private void RangedAttack()
-    {
+    {   
+        // Cooldown timer reset to 0
         cooldownTimer = 0;
+        //Resetting the posistion of the fire balls to the fire point
         fireballs[FindFireball()].transform.position = firepoint.position;
+        // Getting the projectile component form the Fireball and sending the fireball towards where the enemy is facing
         fireballs[FindFireball()].GetComponent<EnemyProjectile>().ActivateProjectile();
     }
+    // Method for all fireballs
     private int FindFireball()
-    {
+    {    // loop through all the fireballs
         for (int i = 0; i < fireballs.Length; i++)
         {
+            // Checking if the fireball in the Hierachy is active and if not active the fireball can be used again
             if (!fireballs[i].activeInHierarchy)
                 return i;
         }
         return 0;
     }
 
+    // Player in sight method
     private bool PlayerInSight()
     {
+        // Creats a ray from point orgin into a certain direction if the line intercepts with a object that has a collide than it will return true other wise it will return false 
         RaycastHit2D hit =
             Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
             0, Vector2.left, 0, playerLayer);
 
+        // Enemy shooting player
         return hit.collider != null;
     }
+    // Drawing Gizomos method
     private void OnDrawGizmos()
     {
+        // Drawing a box which shows how far the enemy will see and where the player will have to be to be hit by the enemy
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z));

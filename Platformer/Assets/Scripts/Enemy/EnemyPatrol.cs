@@ -21,19 +21,22 @@ public class EnemyPatrol : MonoBehaviour
     [Header("Enemy Animator")]
     [SerializeField] private Animator anim;
 
+    // Calling Awake function(Awake function is called everytime the script is loaded)
     private void Awake()
     {
         initScale = enemy.localScale;
     }
     private void OnDisable()
     {
+        // Animation on moving is set to false
         anim.SetBool("moving", false);
     }
 
+    // Update is called once per frame
     private void Update()
-    {
+    {   // if the enemy is moving left
         if (movingLeft)
-        {
+        {   // Make the enemy change direction from left to right
             if (enemy.position.x >= leftEdge.position.x)
                 MoveInDirection(-1);
             else
@@ -41,6 +44,7 @@ public class EnemyPatrol : MonoBehaviour
         }
         else
         {
+            // Making the enemy change direction from right to left
             if (enemy.position.x <= rightEdge.position.x)
                 MoveInDirection(1);
             else
