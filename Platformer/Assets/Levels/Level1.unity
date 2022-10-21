@@ -9515,12 +9515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ca0619640d8ed4f80b27dfdca03644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
-  iFramesDuration: 0
-  numberOfFlashes: 0
-  components:
-  - {fileID: 1131980251}
-  - {fileID: 115627133}
 --- !u!114 &1131980251 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3945821507419463603, guid: 17cb0a3d45ba3854cac8628febf46df3, type: 3}
@@ -12910,7 +12904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5328562167622145572, guid: 3a510185a6d5dbf4d824028f69163874, type: 3}
       propertyPath: m_Color.b
-      value: 0.40784314
+      value: 0.40784317
       objectReference: {fileID: 0}
     - target: {fileID: 5328562167622145572, guid: 3a510185a6d5dbf4d824028f69163874, type: 3}
       propertyPath: m_Color.g
@@ -16954,7 +16948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5328562167622145572, guid: 3a510185a6d5dbf4d824028f69163874, type: 3}
       propertyPath: m_Color.b
-      value: 0.4056604
+      value: 0.4078432
       objectReference: {fileID: 0}
     - target: {fileID: 5328562167622145572, guid: 3a510185a6d5dbf4d824028f69163874, type: 3}
       propertyPath: m_Color.g
@@ -16962,7 +16956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5328562167622145572, guid: 3a510185a6d5dbf4d824028f69163874, type: 3}
       propertyPath: m_Color.r
-      value: 0.25973344
+      value: 0.2627
       objectReference: {fileID: 0}
     - target: {fileID: 5328562167622145579, guid: 3a510185a6d5dbf4d824028f69163874, type: 3}
       propertyPath: m_RootOrder
